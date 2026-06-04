@@ -129,7 +129,7 @@ export default function AdminLayout() {
       </View>
 
       {/* ===== CONTENT AREA ===== */}
-      <View style={styles.contentArea}>
+      <View style={[styles.contentArea, { marginLeft: 0 }]}>
         <Slot />
       </View>
     </View>
@@ -151,6 +151,7 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
     paddingHorizontal: 20,
     flexShrink: 0,
+    transition: 'width 0.3s ease',
   },
 
   // ---- BRAND ----

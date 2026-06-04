@@ -271,9 +271,7 @@ const styles = StyleSheet.create({
   contentWrapper: {
     padding: 24,
     paddingBottom: 40,
-    maxWidth: 1100,
-    alignSelf: 'center',
-    width: '100%',
+    flexGrow: 1,
   },
 
   // ---- HEADER ----
