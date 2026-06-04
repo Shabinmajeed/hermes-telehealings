@@ -136,8 +136,8 @@ export default function AdminLayout() {
           />
           {!collapsed && (
             <>
-              <Text style={styles.profileName}>Dr. Ajesh Anand</Text>
-              <Text style={styles.profileRole}>Admin</Text>
+              <Text style={styles.profileName}>Admin</Text>
+              <Text style={styles.profileRole}>Administrator</Text>
             </>
           )}
         </View>
