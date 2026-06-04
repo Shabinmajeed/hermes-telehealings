@@ -1,21 +1,36 @@
 // frontend/app/(user)/home.tsx
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 import { Colors, Typography, Spacing, BorderRadius, Shadows } from '../../constants/theme';
+import { useAuthStore } from '../../stores/authStore';
 
 export default function HomeScreen() {
+  const router = useRouter();
+  const logout = useAuthStore((state) => state.logout);
+
+  const handleLogout = () => {
+    logout();
+    router.replace('/(user)/splash');
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         {/* Header */}
         <View style={styles.header}>
           <View>
-            <Text style={styles.greeting}>Good morning 👋</Text>
+            <Text style={styles.greeting}>Good morning</Text>
             <Text style={styles.userName}>Welcome to Telehealings</Text>
           </View>
-          <TouchableOpacity style={styles.profileButton}>
-            <Text style={styles.profileIcon}>👤</Text>
-          </TouchableOpacity>
+          <View style={styles.headerActions}>
+            <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+              <Text style={styles.logoutIcon}>↪</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.profileButton}>
+              <Text style={styles.profileIcon}>👤</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/* Quick Actions */}
@@ -131,6 +146,23 @@ const styles = StyleSheet.create({
   },
   profileIcon: {
     fontSize: 20,
+  },
+  headerActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
+  },
+  logoutButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: '#FEE2E2',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logoutIcon: {
+    fontSize: 20,
+    color: Colors.error,
   },
   section: {
     paddingHorizontal: Spacing.lg,
