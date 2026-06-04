@@ -1,8 +1,8 @@
 // frontend/app/admin/_layout.tsx
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity, TextInput,
-  Image, ScrollView, Platform,
+  Image, ScrollView, Animated,
 } from 'react-native';
 import { useRouter, usePathname } from 'expo-router';
 import Svg, { Path, Circle, Rect, Line, Polyline } from 'react-native-svg';
@@ -59,7 +59,20 @@ export default function AdminLayout() {
   const router = useRouter();
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
-  const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const rotateAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(rotateAnim, {
+      toValue: collapsed ? 1 : 0,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+  }, [collapsed]);
+
+  const rotation = rotateAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '180deg'],
+  });
 
   const w = collapsed ? SIDEBAR_COLLAPSED : SIDEBAR_WIDTH;
 
@@ -74,9 +87,11 @@ export default function AdminLayout() {
             {!collapsed && <Text style={styles.brandText}>Telehealings</Text>}
           </View>
           <TouchableOpacity onPress={() => setCollapsed(!collapsed)} style={styles.toggleBtn}>
-            <Svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth={2}>
-              <Polyline points="15 18 9 12 15 6" />
-            </Svg>
+            <Animated.View style={{ transform: [{ rotate: rotation }] }}>
+              <Svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth={2}>
+                <Polyline points="15 18 9 12 15 6" />
+              </Svg>
+            </Animated.View>
           </TouchableOpacity>
         </View>
 
@@ -151,7 +166,6 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
     paddingHorizontal: 20,
     flexShrink: 0,
-    transition: 'width 0.3s ease',
   },
 
   // ---- BRAND ----
