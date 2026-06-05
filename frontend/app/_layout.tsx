@@ -24,7 +24,7 @@ export default function RootLayout() {
     // Allow unauthenticated users to view the onboarding flow inside the (user) group
     const isPublicUserRoute =
       segments[0] === '(user)' &&
-      ['splash', 'marketing', 'onboarding', 'personalisation', 'home'].includes(segments[1] ?? '');
+      ['splash', 'marketing', 'onboarding', 'personalisation', 'home', 'signup'].includes(segments[1] ?? '');
 
     if (!user && !inAuthGroup && !inAdminGroup && !isPublicUserRoute) {
       router.replace('/(auth)/login');

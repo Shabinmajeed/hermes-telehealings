@@ -18,8 +18,16 @@ export interface UserProfile {
   firstName: string;
   lastName: string;
   phone?: string;
+  email?: string;
   avatarUrl?: string;
   dateOfBirth?: string;
+  gender?: string;
+  occupation?: string;
+  maritalStatus?: string;
+  address?: string;
+  emergencyContactName?: string;
+  emergencyContactPhone?: string;
+  emergencyContactRelationship?: string;
   bio?: string;
 }
 

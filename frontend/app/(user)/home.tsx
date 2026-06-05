@@ -109,7 +109,7 @@ export default function HomeScreen() {
             </Svg>
             <Text style={styles.verifyText}>Please verify your account to{'\n'}book Therapists.</Text>
           </View>
-          <TouchableOpacity style={styles.verifyBtn} activeOpacity={0.7}>
+          <TouchableOpacity style={styles.verifyBtn} activeOpacity={0.7} onPress={() => router.push('/(user)/signup/phone-verify')}>
             <Text style={styles.verifyBtnText}>Verify</Text>
             <Svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="#387bd5" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
               <Polyline points="9 18 15 12 9 6" />

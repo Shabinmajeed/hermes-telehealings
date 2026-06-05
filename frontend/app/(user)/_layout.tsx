@@ -32,6 +32,7 @@ export default function UserLayout() {
           <Stack.Screen name="onboarding" />
           <Stack.Screen name="personalisation" />
           <Stack.Screen name="home" />
+          <Stack.Screen name="signup" />
         </Stack>
       </View>
     </View>

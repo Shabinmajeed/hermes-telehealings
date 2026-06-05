@@ -66,3 +66,58 @@ export async function getAllUsers() {
   if (error) throw error;
   return data;
 }
+
+// ---- Sign-up flow operations ----
+
+export interface SignupProfileData {
+  user_id: string;
+  full_name: string;
+  email: string;
+  phone: string;
+  date_of_birth?: string;
+  gender?: string;
+  occupation?: string;
+  marital_status?: string;
+  address?: string;
+  emergency_contact_name?: string;
+  emergency_contact_phone?: string;
+  emergency_contact_relationship?: string;
+  avatar_url?: string;
+}
+
+export async function updateUserProfile(data: SignupProfileData) {
+  const { data: profile, error } = await supabase
+    .from('user_profiles')
+    .upsert({
+      user_id: data.user_id,
+      full_name: data.full_name,
+      email: data.email,
+      phone: data.phone,
+      date_of_birth: data.date_of_birth || null,
+      gender: data.gender || null,
+      occupation: data.occupation || null,
+      marital_status: data.marital_status || null,
+      address: data.address || null,
+      emergency_contact_name: data.emergency_contact_name || null,
+      emergency_contact_phone: data.emergency_contact_phone || null,
+      emergency_contact_relationship: data.emergency_contact_relationship || null,
+      avatar_url: data.avatar_url || null,
+      updated_at: new Date().toISOString(),
+    })
+    .select()
+    .single();
+
+  if (error) throw error;
+  return profile;
+}
+
+export async function getUserProfile(userId: string) {
+  const { data, error } = await supabase
+    .from('user_profiles')
+    .select('*')
+    .eq('user_id', userId)
+    .single();
+
+  if (error) throw error;
+  return data;
+}
