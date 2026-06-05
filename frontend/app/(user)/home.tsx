@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
 
   // ---- FIXED HEADER ----
   fixedHeader: {
-    paddingTop: 48,
+    paddingTop: 25,
     paddingHorizontal: 20,
     paddingBottom: 25,
     borderBottomLeftRadius: 25,
