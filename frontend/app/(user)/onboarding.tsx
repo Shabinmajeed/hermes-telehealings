@@ -1,13 +1,13 @@
 // frontend/app/(user)/onboarding.tsx
 import { useState, useEffect, useRef } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity,
-  Animated, TextInput, ScrollView,, Image} from 'react-native';
+  Animated, TextInput, ScrollView, Image} from 'react-native';
 
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Colors, Spacing } from '../../constants/theme';
 import { useAuthStore } from '../../stores/authStore';
-import { createUser } from '../../services/supabase';
+import { api } from '../../services/api';
 
 const ACCENT = '#1e5ab8';
 
@@ -56,24 +56,28 @@ export default function OnboardingScreen() {
 
   const isFormValid = name.trim().length > 0 && termsAccepted;
 
+  const [errorMsg, setErrorMsg] = useState('');
+
   const handleContinue = async () => {
     if (!isFormValid || isSubmitting) return;
     setIsSubmitting(true);
+    setErrorMsg('');
     try {
-      const user = await createUser({
+      const user = await api.onboardUser({
         name: name.trim(),
-        terms_accepted_at: new Date().toISOString(),
+        termsAcceptedAt: new Date().toISOString(),
         topics: [],
-      });
+      }) as any;
       setUser({
         id: user.id,
-        supabaseId: user.id,
-        email: '',
+        supabaseId: user.supabaseId || user.id,
+        email: user.email || '',
         role: 'USER' as any,
       });
       router.push('/(user)/personalisation');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to create user:', error);
+      setErrorMsg(error.message || 'Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -139,6 +143,11 @@ export default function OnboardingScreen() {
             <Text style={styles.consentLink} onPress={() => setShowTerms(true)}>Privacy Policy</Text>
           </Text>
         </View>
+
+        {/* Error message */}
+        {errorMsg ? (
+          <Text style={styles.errorText}>{errorMsg}</Text>
+        ) : null}
 
         {/* Continue button */}
         <TouchableOpacity
@@ -305,6 +314,15 @@ const styles = StyleSheet.create({
   consentLink: {
     color: '#387bd5',
     fontWeight: '600',
+  },
+
+  // ---- ERROR ----
+  errorText: {
+    color: '#dc2626',
+    fontSize: 13,
+    fontWeight: '500',
+    textAlign: 'center',
+    marginBottom: 12,
   },
 
   // ---- BUTTON ----

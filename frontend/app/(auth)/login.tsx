@@ -1,7 +1,7 @@
 // frontend/app/(auth)/login.tsx
 import { useState } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity,
-  TextInput, Animated,, Image} from 'react-native';
+  TextInput, Animated, Image} from 'react-native';
 
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';

@@ -1,7 +1,7 @@
 // frontend/app/admin/_layout.tsx
 import { useState, useRef, useEffect } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, TextInput,
-  ScrollView, Animated,, Image} from 'react-native';
+  ScrollView, Animated, Image} from 'react-native';
 
 import { useRouter, usePathname } from 'expo-router';
 import Svg, { Path, Circle, Rect, Line, Polyline } from 'react-native-svg';
@@ -127,7 +127,7 @@ export default function AdminLayout() {
                 onPress={() => item.route && router.push(item.route as any)}
                 activeOpacity={0.7}
               >
-                <NavIcon name={item.icon} color={isActive ? '#fff' : '#64748b'} />
+                <NavIcon name={item.icon!} color={isActive ? '#fff' : '#64748b'} />
                 {!collapsed && <Text style={[styles.navText, isActive && styles.navTextActive]}>{item.label}</Text>}
               </TouchableOpacity>
             );

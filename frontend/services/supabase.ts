@@ -1,5 +1,6 @@
 // frontend/services/supabase.ts
 import { createClient } from '@supabase/supabase-js';
+import { api } from './api';
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL || '';
 const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || '';
@@ -43,27 +44,12 @@ export async function getUserById(id: string) {
 // ---- Admin operations ----
 
 export async function adminLogin(username: string, password: string) {
-  const { data, error } = await supabase
-    .from('admins')
-    .select('*')
-    .eq('username', username)
-    .eq('password', password)
-    .single();
-
-  if (error) {
-    console.error('Admin login error:', error.message);
-    throw error;
-  }
+  const data = await api.adminLogin(username, password);
   return data;
 }
 
 export async function getAllUsers() {
-  const { data, error } = await supabase
-    .from('users')
-    .select('*')
-    .order('created_at', { ascending: false });
-
-  if (error) throw error;
+  const data = await api.getAllUsers();
   return data;
 }
 

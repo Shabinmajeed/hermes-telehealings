@@ -1,9 +1,11 @@
-// Placeholder module -- implement in Phase 2
 import { Module } from '@nestjs/common';
+import { UsersService } from './users.service';
+import { UsersController } from './users.controller';
+import { PrismaService } from '../config/prisma.service';
 
 @Module({
-  controllers: [],
-  providers: [],
-  exports: [],
+  controllers: [UsersController],
+  providers: [UsersService, PrismaService],
+  exports: [UsersService],
 })
 export class UsersModule {}

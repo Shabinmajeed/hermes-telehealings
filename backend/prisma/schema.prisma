@@ -44,13 +44,16 @@ enum PaymentStatus {
 // ---------- USER & AUTH ----------
 
 model User {
-  id            String    @id @default(uuid())
-  supabaseId    String    @unique @map("supabase_id")
-  email         String    @unique
-  role          Role      @default(USER)
-  isActive      Boolean   @default(true) @map("is_active")
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @updatedAt @map("updated_at")
+  id              String    @id @default(uuid())
+  supabaseId      String?   @unique @map("supabase_id")
+  email           String?   @unique
+  name            String?
+  termsAcceptedAt DateTime? @map("terms_accepted_at")
+  topics          String[]  @default([])
+  role            Role      @default(USER)
+  isActive        Boolean   @default(true) @map("is_active")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
 
   profile       UserProfile?
   therapist     Therapist?
@@ -65,14 +68,21 @@ model User {
 }
 
 model UserProfile {
-  id          String  @id @default(uuid())
-  userId      String  @unique @map("user_id")
-  firstName   String  @map("first_name")
-  lastName    String  @map("last_name")
-  phone       String?
-  avatarUrl   String? @map("avatar_url")
-  dateOfBirth DateTime? @map("date_of_birth")
-  bio         String?
+  id                          String    @id @default(uuid())
+  userId                      String    @unique @map("user_id")
+  fullName                    String?   @map("full_name")
+  phone                       String?
+  dateOfBirth                 DateTime? @map("date_of_birth")
+  gender                      String?
+  occupation                  String?
+  maritalStatus               String?   @map("marital_status")
+  address                     String?
+  emergencyContactName        String?   @map("emergency_contact_name")
+  emergencyContactPhone       String?   @map("emergency_contact_phone")
+  emergencyContactRelationship String?  @map("emergency_contact_relationship")
+  avatarUrl                   String?   @map("avatar_url")
+  createdAt                   DateTime  @default(now()) @map("created_at")
+  updatedAt                   DateTime  @updatedAt @map("updated_at")
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -318,4 +328,15 @@ model AuditLog {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("audit_logs")
+}
+
+// ---------- ADMIN AUTH ----------
+
+model Admin {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("admins")
 }

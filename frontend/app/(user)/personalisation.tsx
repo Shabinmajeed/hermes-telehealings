@@ -8,7 +8,7 @@ import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import Svg, { Path, Circle } from 'react-native-svg';
 import { useAuthStore } from '../../stores/authStore';
-import { supabase } from '../../services/supabase';
+import { api } from '../../services/api';
 
 const ACCENT = '#1e5ab8';
 const ICON_COLOR = '#1e5ab8';
@@ -119,10 +119,7 @@ export default function PersonalisationScreen() {
     if (!isValid || isSubmitting || !user) return;
     setIsSubmitting(true);
     try {
-      await supabase
-        .from('users')
-        .update({ topics: selectedTopics })
-        .eq('id', user.id);
+      await api.updateUser(user.id, { topics: selectedTopics });
       router.push('/(user)/home');
     } catch (error) {
       console.error('Failed to update topics:', error);
