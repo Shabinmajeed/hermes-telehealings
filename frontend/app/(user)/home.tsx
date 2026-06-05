@@ -44,7 +44,7 @@ export default function HomeScreen() {
   const [showNotifications, setShowNotifications] = useState(false);
 
   const greeting = getGreeting();
-  const userName = user?.profile?.firstName || user?.name || 'User';
+  const userName = user?.profile?.firstName || 'User';
 
   const handleLogout = () => {
     logout();
