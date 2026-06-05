@@ -52,42 +52,50 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      {/* ===== HEADER ROW ===== */}
-      <View style={styles.headerRow}>
-        <TouchableOpacity style={styles.userProfile} onPress={() => setShowDropdown(!showDropdown)}>
-          <View style={styles.avatar}>
-            <Text style={styles.avatarText}>{(userName || '?')[0].toUpperCase()}</Text>
-          </View>
-          <View style={styles.userNameBox}>
-            <Text style={styles.userName}>{userName}</Text>
-            <Svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="#1a293b" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-              <Polyline points="6 9 12 15 18 9" />
-            </Svg>
-          </View>
-
-          {/* Dropdown */}
-          {showDropdown && (
-            <View style={styles.userDropdown}>
-              <TouchableOpacity style={[styles.dropdownItem, styles.dropdownLogout]} onPress={handleLogout}>
-                <Svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round">
-                  <Path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                  <Polyline points="16 17 21 12 16 7" />
-                  <Line x1={21} y1={12} x2={9} y2={12} />
-                </Svg>
-                <Text style={styles.dropdownLogoutText}>Log out</Text>
-              </TouchableOpacity>
+      {/* ===== FIXED HEADER (blue gradient with curved bottom) ===== */}
+      <LinearGradient
+        colors={['rgba(59,130,246,0.12)', 'rgba(226,239,250,1)']}
+        start={{ x: 0.5, y: 0 }}
+        end={{ x: 0.5, y: 1 }}
+        style={styles.fixedHeader}
+      >
+        {/* Top Action Row */}
+        <View style={styles.headerRow}>
+          <TouchableOpacity style={styles.userProfile} onPress={() => setShowDropdown(!showDropdown)}>
+            <View style={styles.avatar}>
+              <Text style={styles.avatarText}>{(userName || '?')[0].toUpperCase()}</Text>
             </View>
-          )}
-        </TouchableOpacity>
+            <View style={styles.userNameBox}>
+              <Text style={styles.userName}>{userName}</Text>
+              <Svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="#1a293b" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+                <Polyline points="6 9 12 15 18 9" />
+              </Svg>
+            </View>
 
-        <TouchableOpacity style={styles.notificationBtn} onPress={() => setShowNotifications(!showNotifications)}>
-          <Svg width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="#384e68" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-            <Path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-            <Path d="M13.73 21a2 2 0 0 1-3.46 0" />
-          </Svg>
-          <View style={styles.notificationDot} />
-        </TouchableOpacity>
-      </View>
+            {/* Dropdown */}
+            {showDropdown && (
+              <View style={styles.userDropdown}>
+                <TouchableOpacity style={[styles.dropdownItem, styles.dropdownLogout]} onPress={handleLogout}>
+                  <Svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round">
+                    <Path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                    <Polyline points="16 17 21 12 16 7" />
+                    <Line x1={21} y1={12} x2={9} y2={12} />
+                  </Svg>
+                  <Text style={styles.dropdownLogoutText}>Log out</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.notificationBtn} onPress={() => setShowNotifications(!showNotifications)}>
+            <Svg width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="#384e68" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+              <Path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+              <Path d="M13.73 21a2 2 0 0 1-3.46 0" />
+            </Svg>
+            <View style={styles.notificationDot} />
+          </TouchableOpacity>
+        </View>
+      </LinearGradient>
 
       {/* ===== SCROLLABLE CONTENT ===== */}
       <ScrollView style={styles.contentWrapper} showsVerticalScrollIndicator={false}>
@@ -268,15 +276,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#fbfcfd',
   },
 
+  // ---- FIXED HEADER ----
+  fixedHeader: {
+    paddingTop: 48,
+    paddingHorizontal: 20,
+    paddingBottom: 25,
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.04,
+    shadowRadius: 16,
+    elevation: 4,
+    zIndex: 10,
+  },
+
   // ---- HEADER ROW ----
   headerRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 10,
-    paddingBottom: 0,
-    zIndex: 10,
   },
   userProfile: {
     flexDirection: 'row',
