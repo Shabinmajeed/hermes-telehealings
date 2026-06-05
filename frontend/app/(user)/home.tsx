@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
-import Svg, { Path, Circle, Line, Polyline } from 'react-native-svg';
+import Svg, { Path, Circle, Line, Polyline, Polygon } from 'react-native-svg';
 import { useAuthStore } from '../../stores/authStore';
 
 const MOODS = [
