@@ -61,6 +61,8 @@ export default function AdminLayout() {
   const [collapsed, setCollapsed] = useState(false);
   const rotateAnim = useRef(new Animated.Value(0)).current;
 
+  const isLoginPage = pathname === '/admin/login' || pathname === '/admin';
+
   useEffect(() => {
     Animated.timing(rotateAnim, {
       toValue: collapsed ? 1 : 0,
@@ -74,6 +76,12 @@ export default function AdminLayout() {
     outputRange: ['0deg', '180deg'],
   });
 
+  // Login page: no sidebar, full screen
+  if (isLoginPage) {
+    return <Slot />;
+  }
+
+  // All other admin pages: sidebar + content
   const w = collapsed ? SIDEBAR_COLLAPSED : SIDEBAR_WIDTH;
 
   return (
