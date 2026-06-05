@@ -13,7 +13,7 @@
     "@supabase/supabase-js": "^2.107.0",
     "expo": "~54.0.35",
     "expo-constants": "~18.0.13",
-    "expo-image": "^56.0.9",
+    "expo-image": "^1.13.0",
     "expo-linear-gradient": "~14.0.0",
     "expo-linking": "~8.0.12",
     "expo-router": "~6.0.24",
