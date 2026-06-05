@@ -1,10 +1,8 @@
 // frontend/app/admin/_layout.tsx
 import { useState, useRef, useEffect } from 'react';
-import {
-  View, Text, StyleSheet, TouchableOpacity, TextInput,
-  ScrollView, Animated,
-} from 'react-native';
-import { Image } from 'expo-image';
+import {View, Text, StyleSheet, TouchableOpacity, TextInput,
+  ScrollView, Animated,, Image} from 'react-native';
+
 import { useRouter, usePathname } from 'expo-router';
 import Svg, { Path, Circle, Rect, Line, Polyline } from 'react-native-svg';
 import { Slot } from 'expo-router';

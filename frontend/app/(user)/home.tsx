@@ -1,10 +1,8 @@
 // frontend/app/(user)/home.tsx
 import { useState, useRef, useEffect } from 'react';
-import {
-  View, Text, StyleSheet, ScrollView, TouchableOpacity,
-  TextInput, Animated,
-} from 'react-native';
-import { Image } from 'expo-image';
+import {View, Text, StyleSheet, ScrollView, TouchableOpacity,
+  TextInput, Animated,, Image} from 'react-native';
+
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import Svg, { Path, Circle, Line, Polyline, Polygon } from 'react-native-svg';

@@ -1,10 +1,8 @@
 // frontend/app/admin/login.tsx
 import { useState } from 'react';
-import {
-  View, Text, StyleSheet, TextInput,
-  TouchableOpacity, KeyboardAvoidingView, Platform,
-} from 'react-native';
-import { Image } from 'expo-image';
+import {View, Text, StyleSheet, TextInput,
+  TouchableOpacity, KeyboardAvoidingView, Platform,, Image} from 'react-native';
+
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import Svg, { Path, Circle, Rect } from 'react-native-svg';

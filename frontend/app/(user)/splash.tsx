@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native';
-import { Image } from 'expo-image';
+import {View, Text, StyleSheet, TouchableOpacity, Animated, Image} from 'react-native';
+
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { Typography, Spacing } from '../../constants/theme';
