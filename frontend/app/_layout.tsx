@@ -1,9 +1,20 @@
 // frontend/app/_layout.tsx
 import { Stack, useRouter, useSegments } from 'expo-router';
 import { useEffect } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, Image as RNImage } from 'react-native';
 import { useAuthStore } from '../stores/authStore';
 import { Colors } from '../constants/theme';
+
+// Fix for web: prevent global Image constructor conflict
+if (typeof window !== 'undefined' && typeof window.Image === 'function') {
+  const OriginalImage = window.Image;
+  // @ts-ignore
+  window.Image = function (...args: any[]) {
+    return new OriginalImage(...args);
+  };
+  // @ts-ignore
+  window.Image.prototype = OriginalImage.prototype;
+}
 
 export default function RootLayout() {
   const { user, isLoading, checkAuthStatus } = useAuthStore();
